@@ -41,6 +41,7 @@ exports.addContact = async (req, res, next) => {
 
     return res.send('OK');
   } catch(err) {
+    console.error(err);
     return res.status(404).send(err);
   }
 };

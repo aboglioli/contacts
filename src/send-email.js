@@ -18,16 +18,20 @@ module.exports = (gmailEmail, gmailPassword) => {
   });
 
   return async (name, email, contact) => {
-    const result = await contactTemplate.render('contact', {name, contact});
-    const mailOptions = {
-      from: 'Contacto <contacto@ideenegocios.com.ar>',
-      to: email,
-      subject: `Nuevo contacto en ${name}`,
-      html: result
-    };
+    try {
+      const result = await contactTemplate.render('contact', {name, contact});
+      const mailOptions = {
+        from: 'Contacto <contacto@ideenegocios.com.ar>',
+        to: email,
+        subject: `Nuevo contacto en ${name}`,
+        html: result
+      };
 
-    await mailTransport.sendMail(mailOptions);
+      await mailTransport.sendMail(mailOptions);
 
-    return result;
+      return result;
+    } catch(err) {
+      throw err;
+    }
   };
 };
