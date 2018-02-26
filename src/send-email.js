@@ -1,11 +1,5 @@
 const path = require('path');
 
-// mailgun
-// const mailgun = require('mailgun-js')({
-//   apiKey: process.env.MAILGUN_API_KEY,
-//   domain: process.env.MAILGUN_DOMAIN
-// });
-
 // email templates
 const Email = require('email-templates');
 
