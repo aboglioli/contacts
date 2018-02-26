@@ -1,9 +1,5 @@
-const path = require('path');
-
-// email templates
+const debug = require('debug')('send-email');
 const Email = require('email-templates');
-
-// mailer
 const nodemailer = require('nodemailer');
 
 module.exports = (gmailEmail, gmailPassword) => {
@@ -17,6 +13,8 @@ module.exports = (gmailEmail, gmailPassword) => {
     }
   });
 
+  debug('mailTransport created');
+
   return async (name, email, contact) => {
     try {
       const result = await contactTemplate.render('contact', {name, contact});
@@ -27,7 +25,11 @@ module.exports = (gmailEmail, gmailPassword) => {
         html: result
       };
 
+      debug('mailOptions', mailOptions);
+
+      debug('sending email');
       await mailTransport.sendMail(mailOptions);
+      debug('email sent');
 
       return result;
     } catch(err) {

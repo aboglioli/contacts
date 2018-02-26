@@ -1,5 +1,6 @@
 // environment
 require('dotenv').config();
+const debug = require('debug')('boot');
 
 const http = require('http');
 const https = require('https');
@@ -10,13 +11,13 @@ const initializeApp = require('./src/server');
 
 db.then(db => initializeApp(db))
   .then(app => {
-    console.log(`ENV: ${process.env.NODE_ENV}`);
+    debug(`ENV: ${process.env.NODE_ENV}`);
 
     // http
     http.createServer(app)
       .listen(
         process.env.APP_HTTP_PORT,
-        () => console.log(`[HTTP] Listening on port ${process.env.APP_HTTP_PORT})`)
+        () => debug(`[HTTP] Listening on port ${process.env.APP_HTTP_PORT}`)
       );
 
     const certsExists = fs.existsSync(process.env.SSL_PATH + 'privkey.pem') &&
@@ -29,9 +30,9 @@ db.then(db => initializeApp(db))
       https.createServer({key, cert}, app)
         .listen(
           process.env.APP_HTTPS_PORT,
-          () => console.log(`[HTTPS] Listening on port ${process.env.APP_HTTPS_PORT}`)
+          () => debug(`[HTTPS] Listening on port ${process.env.APP_HTTPS_PORT}`)
         );
     } else {
-      console.log(`[HTTPS] Certs were not found`);
+      debug(`[HTTPS] Certs were not found`);
     }
   });
