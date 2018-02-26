@@ -17,15 +17,19 @@ module.exports = (gmailEmail, gmailPassword) => {
     }
   });
 
-  return (name, email, contact) => {
-    return contactTemplate.render('contact', {name, contact})
-      .then((result) => ({
-          from: 'Contacto <contacto@ideenegocios.com.ar>',
-          to: email,
-          subject: `Nuevo contacto en ${name}`,
-          html: result.html
-        }))
-      .then((mailOptions => mailTransport.sendMail(mailOptions)))
-      .catch(console.error);
+  return async (name, email, contact) => {
+    const result = await contactTemplate.render('contact', {name, contact});
+    const mailOptions = {
+      from: 'Contacto <contacto@ideenegocios.com.ar>',
+      to: email,
+      subject: `Nuevo contacto en ${name}`,
+      html: result
+    };
+
+    console.log('mailOptions', mailOptions);
+
+    // await mailTransport.sendMail(mailOptions);
+
+    return result;
   };
 };

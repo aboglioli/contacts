@@ -5,6 +5,6 @@ const adapter = new FileAsync('db.json');
 
 module.exports  = low(adapter)
   .then(db => {
-    db.defaults({ posts: [] }).write();
+    db.defaults({ root: [] }).write();
     return db;
   });
