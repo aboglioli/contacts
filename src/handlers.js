@@ -1,10 +1,10 @@
 const debug = require('debug')('handlers');
 const moment = require('moment');
 
-const gmailEmail = process.env.GMAIL_EMAIL;
-const gmailPassword = process.env.GMAIL_PASSWORD;
+const apiKey = process.env.MAILGUN_API_KEY;
+const domain = process.env.MAILGUN_DOMAIN;
 
-const sendEmail = require('./send-email')(gmailEmail, gmailPassword);
+const sendEmail = require('./send-email');
 const {formatContact} = require('./utils');
 
 exports.getContacts = async (req, res, next) => {
