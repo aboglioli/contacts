@@ -26,9 +26,7 @@ module.exports = (gmailEmail, gmailPassword) => {
       html: result
     };
 
-    console.log('mailOptions', mailOptions);
-
-    // await mailTransport.sendMail(mailOptions);
+    await mailTransport.sendMail(mailOptions);
 
     return result;
   };

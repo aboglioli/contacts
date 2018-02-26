@@ -4,16 +4,16 @@ function capitalizeFirstLetter(str) {
 
 function formatContact(contact) {
   return Object.keys(contact).reduce((obj, key) => {
-    if(Array.isArray(contact[key])) {
-      if(contact[key].length > 0) {
-        if(typeof contact[key][0] === 'object') {
+    if (Array.isArray(contact[key])) {
+      if (contact[key].length > 0) {
+        if (typeof contact[key][0] === 'object') {
           obj[capitalizeFirstLetter(key)] = contact[key].map(formatContact);
         } else {
           obj[capitalizeFirstLetter(key)] = contact[key].join(', ');
         }
       }
     }
-    else if(typeof contact[key] === 'object') {
+    else if (typeof contact[key] === 'object') {
       obj[capitalizeFirstLetter(key)] = formatContact(contact[key]);
     }
     else {

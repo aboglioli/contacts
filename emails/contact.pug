@@ -19,7 +19,7 @@ mixin renderItem(obj)
     else
       .data-item
         p.name= key
-        p.value= val
+        p.value!= val.replace(/\n/g, '<br />')
 
 .wrapper
   h1#title= name
